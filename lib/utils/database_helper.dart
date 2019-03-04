@@ -45,6 +45,17 @@ class DatabaseHelper {
     return await db.rawQuery('SELECT * FROM notes ORDER BY updated_at DESC');
   }
 
+  Future<List<Note>> getNotesList() async {
+    var noteMapList = await getNotes();
+
+    List<Note> noteList = List<Note>();
+    for (int i = 0; i < noteMapList.length; i++) {
+      noteList.add(Note.fromMap(noteMapList[i]));
+    }
+
+    return noteList;
+  }
+
   Future<int> insertNote(Note note) async {
     Database db = await this.database;
 

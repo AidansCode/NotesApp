@@ -7,6 +7,7 @@ class Note {
   Note.withID(this._id, this._name, this._note, this._created_at, this._updated_at);
 
   int get id => _id;
+  set id(int id) => _id = id;
 
   String get name => _name;
   set name(String name) => _name = name;
