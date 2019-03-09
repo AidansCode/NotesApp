@@ -28,59 +28,59 @@ class NoteCreate extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Form(
-        key: _formKey,
-        child: ListView(
-          padding: EdgeInsets.symmetric(horizontal: 16),
-          children: <Widget>[
-            TextFormField(
-              validator: _validateName,
-              onSaved: (String value) => _name = value,
-              decoration: InputDecoration(
-                  labelText: 'Title',
-                  hintText: 'Title of your note'
-              ),
+      key: _formKey,
+      child: ListView(
+        padding: EdgeInsets.symmetric(horizontal: 16),
+        children: <Widget>[
+          TextFormField(
+            validator: _validateName,
+            onSaved: (String value) => _name = value,
+            decoration: InputDecoration(
+                labelText: 'Title',
+                hintText: 'Title of your note'
             ),
-            TextFormField(
-              maxLines: null,
-              keyboardType: TextInputType.multiline,
-              validator: _validateNote,
-              onSaved: (String value) => _note = value,
-              decoration: InputDecoration(
-                  labelText: 'Note',
-                  hintText: 'Your note'
-              ),
+          ),
+          TextFormField(
+            maxLines: null,
+            keyboardType: TextInputType.multiline,
+            validator: _validateNote,
+            onSaved: (String value) => _note = value,
+            decoration: InputDecoration(
+                labelText: 'Note',
+                hintText: 'Your note'
             ),
-            Center(
-                child: RaisedButton(
-                  child: Text(
-                    'Save',
-                    style: TextStyle(
-                      color: Colors.white
-                    ),
+          ),
+          Center(
+              child: RaisedButton(
+                child: Text(
+                  'Save',
+                  style: TextStyle(
+                    color: Colors.white
                   ),
-                  color: Colors.teal,
-                  onPressed: () {
-                    if (_formKey.currentState.validate()) {
-                      _formKey.currentState.save();
+                ),
+                color: Colors.teal,
+                onPressed: () {
+                  if (_formKey.currentState.validate()) {
+                    _formKey.currentState.save();
 
-                      // submit new note
-                      var timestamp = DateTime.now().toLocal().toString();
-                      Note note = Note(_name, _note, timestamp, timestamp);
+                    // submit new note
+                    var timestamp = DateTime.now().millisecondsSinceEpoch;
+                    Note note = Note(_name, _note, timestamp.toString(), timestamp.toString());
 
-                      Future<int> futureId = HomeControllerState.getInstance().databaseHelper.insertNote(note);
-                      futureId.then((id) {
-                        note.id = id;
-                      });
-                      HomeControllerState.getInstance().addNote(note);
+                    Future<int> futureId = HomeControllerState.getInstance().databaseHelper.insertNote(note);
+                    futureId.then((id) {
+                      note.id = id;
+                    });
+                    HomeControllerState.getInstance().addNote(note);
 
-                      // return to index
-                      NoteController.index();
-                    }
-                  },
-                )
-            )
-          ],
-        )
+                    // return to index
+                    NoteController.index();
+                  }
+                },
+              )
+          )
+        ],
+      )
     );
   }
 

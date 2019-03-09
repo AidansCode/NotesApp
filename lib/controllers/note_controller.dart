@@ -3,6 +3,7 @@ import 'package:notes_app/pages/note/index.dart';
 import 'package:notes_app/pages/note/show.dart';
 import 'package:notes_app/pages/note/create.dart';
 import 'package:notes_app/widgets/create_note_fab.dart';
+import 'package:notes_app/models/note.dart';
 
 class NoteController {
 
@@ -13,9 +14,9 @@ class NoteController {
     );
   }
 
-  static void show(int index) {
+  static void show(Note note) {
     HomeControllerState.getInstance().setCurrentPage(
-      NoteShow(),
+      NoteShow(note),
       isHome: false
     );
   }

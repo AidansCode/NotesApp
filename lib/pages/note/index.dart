@@ -24,6 +24,7 @@ class _NoteIndexState extends State<NoteIndex> {
     super.initState();
 
     _notes = HomeControllerState.getInstance().notes;
+    _notes.sort((a, b) => b.updated_at.compareTo(a.updated_at)); // b then a because we want descending order
     _noteListTiles = getNoteListTiles();
   }
 
@@ -31,6 +32,9 @@ class _NoteIndexState extends State<NoteIndex> {
     List<NoteListTile> result = List<NoteListTile>();
 
     _notes.forEach((note) {
+      String noteContent = note.note.replaceAll("\n", " ").replaceAll("\t", " ").trim();
+      if (noteContent.length > 50) noteContent = noteContent.substring(0, 50);
+
       result.add(
         NoteListTile(
           id: note.id,
@@ -50,9 +54,9 @@ class _NoteIndexState extends State<NoteIndex> {
                 }
             ),
             title: Text(note.name),
-            subtitle: Text(note.note),
+            subtitle: Text(noteContent),
             onTap: () {
-              NoteController.show(note.id);
+              NoteController.show(note);
             },
           ),
         )
@@ -75,6 +79,7 @@ class _NoteIndexState extends State<NoteIndex> {
       );
     else
       return ListView(
+        key: UniqueKey(),
         children: _noteListTiles,
       );
   }
