@@ -35,6 +35,7 @@ class NoteCreate extends StatelessWidget {
           TextFormField(
             validator: _validateName,
             onSaved: (String value) => _name = value,
+            textCapitalization: TextCapitalization.words,
             decoration: InputDecoration(
                 labelText: 'Title',
                 hintText: 'Title of your note'
@@ -45,6 +46,7 @@ class NoteCreate extends StatelessWidget {
             keyboardType: TextInputType.multiline,
             validator: _validateNote,
             onSaved: (String value) => _note = value,
+            textCapitalization: TextCapitalization.sentences,
             decoration: InputDecoration(
                 labelText: 'Note',
                 hintText: 'Your note'

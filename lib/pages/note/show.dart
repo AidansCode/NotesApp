@@ -38,6 +38,7 @@ class NoteShow extends StatelessWidget {
             validator: _validateName,
             onSaved: (String value) => _note.name = value,
             initialValue: _note.name,
+            textCapitalization: TextCapitalization.words,
             decoration: InputDecoration(
               labelText: 'Title',
               hintText: 'Title of your note'
@@ -49,6 +50,7 @@ class NoteShow extends StatelessWidget {
             initialValue: _note.note,
             maxLines: null,
             keyboardType: TextInputType.multiline,
+            textCapitalization: TextCapitalization.sentences,
             decoration: InputDecoration(
               labelText: 'Note',
               hintText: 'Your note'
